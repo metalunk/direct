@@ -3,20 +3,23 @@
 
 #include <MacTypes.h>
 #include <vector>
+#include "Edge.h"
+#include "Point.h"
 
 namespace direct {
-
     class Rectangle {
+        int center_point;
+        const std::vector<direct::Point> vertices;
+        const std::vector<direct::Edge> edges;
+
     public:
         void calc_center_point();
 
-        Rectangle(std::vector<std::vector<double>> vertices);
-
-    private:
-        int center_point;
-        std::vector<std::vector<double>> vertices;
+        Rectangle(
+            const std::vector<direct::Point> vertices,
+            const std::vector<direct::Edge> edges
+        );
     };
-
 }
 
 #endif //DIRECT_RECTANGLE_H

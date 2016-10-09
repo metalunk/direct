@@ -1,13 +1,15 @@
 #include <iostream>
+#include <stdlib.h>
+#include <string.h>
 #include <vector>
 #include "ObjectiveFunctions/AbsX.h"
 
 int main() {
-    std::string objective_function_name;
-    std::cin >> objective_function_name;
+    char* objective_function_name;
+    objective_function_name = getenv("OBJECTIVE_FUNCTION_NAME");
 
     std::unique_ptr<direct::ObjectiveFunctionBase> objective_function;
-    if (objective_function_name == "AbsX") {
+    if (strcmp("AbsX", objective_function_name) == 0) {
         objective_function = std::unique_ptr<direct::ObjectiveFunctionBase>(
             new direct::AbsX()
         );
@@ -16,8 +18,7 @@ int main() {
         std::exit(EXIT_FAILURE);
     }
 
-    std::vector<double> x(1, -1);
-    std::cout << "Abs of -1 is " << objective_function->evaluate(x) << std::endl;
+    std::vector<direct::Rectangle> rectangles = objective_function->create_feasible_rectangles();
 
     return 0;
 }
